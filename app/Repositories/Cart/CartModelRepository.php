@@ -35,11 +35,12 @@ public function add(Product $product, $quantity = 1)
     if(!$item)
     {
       $cart=Cart::create([
-            'user_id'=>Auth::user()->id,
+            'user_id'=>Auth::id(),
             'product_id'=>$product->id,
             'quantity'=>$quantity
         ]);
         $this->get()->push($cart);
+        return $cart;
     }
     return $item->increment('quantity',$quantity);
 
