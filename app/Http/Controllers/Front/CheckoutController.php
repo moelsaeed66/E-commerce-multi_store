@@ -35,6 +35,7 @@ class CheckoutController extends Controller
     public function store(CartRepository $cart,Request $request)
     {
 //        $request->validate([
+//            'addr.billing.first_name'=>['required','string','max:255']
 //
 //        ]);
         $items=$cart->get()->groupBy('product.store_id')->all();

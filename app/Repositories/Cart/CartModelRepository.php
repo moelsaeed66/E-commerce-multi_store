@@ -69,6 +69,7 @@ public function total(): float
      ->value('total');*/
 
     return $this->get()->sum(function ($item){
+//        dd($item->product);
          return $item->quantity * $item->product->price;
     });
 }
