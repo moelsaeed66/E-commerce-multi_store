@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\Route;
 //    ->middleware(['auth'])
 //    ->name('dashboard');
 Route::group([
-    'middleware'=>['auth','auth.type:admin'],
+    'middleware'=>['auth:admin'],
+
+    'prefix'=>'admin/dashboard/'
 ],function (){
-    Route::get('/dashboard',DashboardController::class)->name('dashboard');
+//    dd('hello');
+    Route::get('/',DashboardController::class)->name('dashboard');
     Route::get('categories/trash',[CategoriesController::class,'trash'])->name('categories.trash');
     Route::put('categories/{category}/restore',[CategoriesController::class,'restore'])->name('categories.restore');
     Route::get('categories/soft-delete',[CategoriesController::class,'softDelete'])->name('categories.soft-delete');
@@ -26,10 +29,10 @@ Route::group([
 
 
     //categories
-    Route::resource('dashboard/categories', CategoriesController::class);
+    Route::resource('categories', CategoriesController::class);
 
     //products
-    Route::resource('dashboard/products', ProductController::class);
+    Route::resource('products', ProductController::class);
 
 
 });
