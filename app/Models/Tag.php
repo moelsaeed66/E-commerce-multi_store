@@ -9,6 +9,7 @@ class Tag extends Model
 {
     use HasFactory;
     protected $fillable=['name','slug'];
+//protected $guarded=[];
     public $timestamps=false;
 
     public function products()
