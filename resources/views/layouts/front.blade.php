@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\URL; @endphp
 {{--@php use Illuminate\Support\Facades\Auth; @endphp--}}
 
 {{--    <!DOCTYPE html>--}}
@@ -485,19 +486,19 @@
 <html class="no-js" lang="zxx">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>{{ $title }}</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.svg') }}" />
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.svg') }}"/>
 
     <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/LineIcons.3.0.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/tiny-slider.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/glightbox.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/LineIcons.3.0.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/tiny-slider.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/glightbox.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}"/>
     @stack('styles')
 </head>
 
@@ -535,40 +536,47 @@
                                     <form action="{{ route('currency.store') }}" method="post">
                                         @csrf
                                         <select name="currency_code" onchange="this.form.submit()">
-                                            <option value="USD" @selected('USD' == session('currency_code'))>$ USD</option>
-                                            <option value="EUR" @selected('EUR' == session('currency_code'))>€ EURO</option>
-                                            <option value="ILS" @selected('ILS' == session('currency_code'))>$ ILS</option>
-                                            <option value="JOD" @selected('JOD' == session('currency_code'))>₹ JOD</option>
-                                            <option value="SAR" @selected('SAR' == session('currency_code'))>¥ SAR</option>
-                                            <option value="QAR" @selected('QAR' == session('currency_code'))>৳ QAR</option>
+                                            <option value="USD" @selected('USD' == session('currency_code'))>$ USD
+                                            </option>
+                                            <option value="EUR" @selected('EUR' == session('currency_code'))>€ EURO
+                                            </option>
+                                            <option value="ILS" @selected('ILS' == session('currency_code'))>$ ILS
+                                            </option>
+                                            <option value="JOD" @selected('JOD' == session('currency_code'))>₹ JOD
+                                            </option>
+                                            <option value="SAR" @selected('SAR' == session('currency_code'))>¥ SAR
+                                            </option>
+                                            <option value="QAR" @selected('QAR' == session('currency_code'))>৳ QAR
+                                            </option>
                                         </select>
                                     </form>
                                 </div>
                             </li>
-                            <li>
-                                <div class="select-position">
-                                    <select id="select5">
-                                        <option value="0" selected>English</option>
-                                        <option value="1">Español</option>
-                                        <option value="2">Filipino</option>
-                                        <option value="3">Français</option>
-                                        <option value="4">العربية</option>
-                                        <option value="5">हिन्दी</option>
-                                        <option value="6">বাংলা</option>
-                                    </select>
-                                </div>
-                            </li>
 {{--                            <li>--}}
 {{--                                <div class="select-position">--}}
-{{--                                    <form action="{{ URL::current() }}" method="get">--}}
-{{--                                        <select name="locale" onchange="this.form.submit()">--}}
-{{--                                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)--}}
-{{--                                                <option value="{{ $localeCode }}" @selected($localeCode == App::currentLocale())>{{ $properties['native'] }}</option>--}}
-{{--                                            @endforeach--}}
-{{--                                        </select>--}}
+{{--                                    <form action="{{URL::current()}}" method="get">--}}
+{{--                                    <select name="locale" onchange="this.form.submit()">--}}
+{{--                                        <option value="en">English</option>--}}
+{{--                                        <option value="es">Español</option>--}}
+{{--                                        <option value="fr">Français</option>--}}
+{{--                                        <option value="ar">العربية</option>--}}
+{{--                                        <option value="in">हिन्दी</option>--}}
+{{--                                        <option value="cn">বাংলা</option>--}}
+{{--                                    </select>--}}
 {{--                                    </form>--}}
 {{--                                </div>--}}
 {{--                            </li>--}}
+                                                        <li>
+                                                            <div class="select-position">
+                                                                <form action="{{ URL::current() }}" method="get">
+                                                                    <select name="locale" onchange="this.form.submit()">
+                                                                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                                                            <option value="{{ $localeCode }}" @selected($localeCode == App::currentLocale())>{{ $properties['native'] }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </form>
+                                                            </div>
+                                                        </li>
                         </ul>
                     </div>
                 </div>
@@ -590,7 +598,9 @@
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout').submit()">Sign Out</a>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault(); document.getElementById('logout').submit()">Sign
+                                        Out</a>
                                 </li>
                                 <form action="{{ route('logout') }}" id="logout" method="post" style="display:none">
                                     @csrf
@@ -670,7 +680,7 @@
                                     <span class="total-items">0</span>
                                 </a>
                             </div>
-                            <x-cart-menu />
+                            <x-cart-menu/>
                         </div>
                     </div>
                 </div>

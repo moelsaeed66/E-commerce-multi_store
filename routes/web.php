@@ -9,6 +9,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ProductsController;
 use App\Http\Controllers\Front\TwoFactorAuthenticationController;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,22 +25,28 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::get('dashboard',DashboardController::class)->name('dashboard');
-Route::get('/',[HomeController::class,'index'])->name('home');
+Route::group([
+    'prefix'=>LaravelLocalization::setLocale()
+],function (){
+    Route::get('dashboard',DashboardController::class)->name('dashboard');
+    Route::get('/',[HomeController::class,'index'])->name('home');
 
-Route::get('product',[ProductsController::class,'index'])->name('product.index');
+    Route::get('product',[ProductsController::class,'index'])->name('product.index');
 
-Route::get('product/{product:slug}',[ProductsController::class,'show'])->name('product.show');
+    Route::get('product/{product:slug}',[ProductsController::class,'show'])->name('product.show');
 
-Route::resource('cart', CartController::class);
+    Route::resource('cart', CartController::class);
 
-Route::get('checkout',[CheckoutController::class,'create'])->name('checkout.create');
-Route::post('checkout',[CheckoutController::class,'store'])->name('checkout.store');
+    Route::get('checkout',[CheckoutController::class,'create'])->name('checkout.create');
+    Route::post('checkout',[CheckoutController::class,'store'])->name('checkout.store');
+    Route::get('auth/user/two-factor', TwoFactorAuthenticationController::class)->name('front.two-factor');
+    Route::post('currency',[CurrencyConverterController::class,'store'])
+        ->name('currency.store');
+});
 
 
-Route::get('auth/user/two-factor', TwoFactorAuthenticationController::class)->name('front.two-factor');
-Route::post('currency',[CurrencyConverterController::class,'store'])
-->name('currency.store');
+
+
 //Route::get('/dash', function () {
 //    return view('dashboard');
 //})->middleware(['auth'])->name('dashboard');

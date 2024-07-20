@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\CurrencyConverter;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Validator;
 
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        App::setLocale(request('locale','en'));
         JsonResource::withoutWrapping();
         \Illuminate\Support\Facades\Validator::extend('filter',  function($attribute,$value)
                 {
