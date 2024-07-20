@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckoutController;
+use App\Http\Controllers\front\CurrencyConverterController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ProductsController;
 use App\Http\Controllers\Front\TwoFactorAuthenticationController;
@@ -37,7 +38,8 @@ Route::post('checkout',[CheckoutController::class,'store'])->name('checkout.stor
 
 
 Route::get('auth/user/two-factor', TwoFactorAuthenticationController::class)->name('front.two-factor');
-//
+Route::post('currency',[CurrencyConverterController::class,'store'])
+->name('currency.store');
 //Route::get('/dash', function () {
 //    return view('dashboard');
 //})->middleware(['auth'])->name('dashboard');
