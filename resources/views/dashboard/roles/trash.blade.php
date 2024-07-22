@@ -1,16 +1,14 @@
 @extends('layouts.dashboardLayout')
-@section('title','categories')
+@section('title','Trashed Categories')
 @section('breadcrumb')
     @parent
     <li class="breadcrumb-item active">Categories</li>
+    <li class="breadcrumb-item active">Trashed Categories</li>
+
 @endsection
 @section('content')
     <div class="mb-5">
-        @if(\Illuminate\Support\Facades\Auth::user()->can('categories.create'))
-        <a href="{{route('categories.create')}}" class="btn btn-sm btn-outline-primary mr-3">Add Category</a>
-        @endif
-        <a href="{{route('categories.trash')}}" class="btn btn-sm btn-outline-dark">Trashed Categories</a>
-
+        <a href="{{route('categories.index')}}" class="btn btn-sm btn-outline-primary">Back</a>
     </div>
     <x-alert type="success"/>
 {{--@if(session()->has('success'))--}}
@@ -36,10 +34,8 @@
             <th>Image</th>
             <th>ID</th>
             <th>Name</th>
-            <th>Parent_Name</th>
-            <th>Product Number</th>
             <th>Status</th>
-            <th>Created at</th>
+            <th>Deleted at</th>
             <th colspan="2"></th>
 
         </tr>
@@ -54,34 +50,34 @@
             <tr>
                 <td><img src="{{asset('storage/'.$category->image)}}" height="50"></td>
                 <td>{{$category->id}}</td>
-                <td><a href="{{route('categories.show',$category->id)}}">{{$category->name}}</a></td>
-                <td>{{$category->parent->name}}</td>
-                <td>{{$category->products_count}}</td>
+                <td>{{$category->name}}</td>
+
                 <td>{{$category->status}}</td>
-                <td>{{$category->created_at}}</td>
+                <td>{{$category->deleted_at}}</td>
                 <td></td>
                 <td></td>
 
 
                 <td>
-                    @can('categories.update')
-                    <a href="{{route('categories.edit',['category'=>$category->id])}}" class="btn btn-sm btn-primary">Edit</a>
-                    @endcan
+                    <form action="{{route('categories.restore',['category'=>$category->id])}}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Restore</button>
+                    </form>
+
                 </td>
                 <td>
-                    @can('categories.delete')
-                    <form action="{{route('categories.destroy',['category'=>$category->id])}}" method="post">
+                    <form action="{{route('categories.soft-delete',['category'=>$category->id])}}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        <button type="submit" class="btn btn-sm btn-outline-danger">SoftDelete</button>
                     </form>
-                    @endcan
 
                 </td>
             </tr>
         @empty
             <tr>
-                <td colspan="8">No Categories</td>
+                <td colspan="7">No Categories</td>
             </tr>
         @endforelse
 

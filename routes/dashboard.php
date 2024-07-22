@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Middleware\CheckUserType;
 use Illuminate\Support\Facades\Route;
 //
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 //    ->middleware(['auth'])
 //    ->name('dashboard');
 Route::group([
-    'middleware'=>['auth:admin'],
+    'middleware'=>['auth:admin,wed'],
 
     'prefix'=>'admin/dashboard/'
 ],function (){
@@ -33,6 +34,9 @@ Route::group([
 
     //products
     Route::resource('products', ProductController::class);
+
+    //Roles
+    Route::resource('roles', RolesController::class);
 
 
 });

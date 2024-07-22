@@ -20,7 +20,7 @@ class AdminFactory extends Factory
         return [
                         'name'=>$this->faker->name,
                         'email'=>$this->faker->unique()->safeEmail,
-                        'password'=>Hash::make('password'),
+                        'password'=>Hash::make('123456789'),
                         'username'=>$this->faker->unique()->userName,
                         'phone_number'=>$this->faker->unique()->phoneNumber,
                         'super_admin'=>$this->faker->boolean,

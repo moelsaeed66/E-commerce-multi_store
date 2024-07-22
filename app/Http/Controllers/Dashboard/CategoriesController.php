@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -16,6 +17,10 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
+       if(!Gate::allows('categories.view')) {
+           abort(403);
+
+        };
         $request=request(); //another sol
         $query=Category::all();
 //        $categories=Category::leftJoin('categories as parents' ,'parents.id','=','categories.parent_id')
@@ -61,6 +66,10 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        if(Gate::denies('categories.create'))
+        {
+            abort(403);
+        }
         $parents=Category::all();
         $categories=new Category();
         return view('dashboard.categories.create',compact('parents','categories'));
@@ -71,6 +80,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('categories.create');
         $request->validate(Category::rules(),[
             'unique'=>'this name already exist',
             'required'=>'this field(:attribute) is required'
@@ -101,6 +111,7 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
+        Gate::authorize('categories.update');
         $categories=Category::findorFail($id);
 //        if(!$categories)
 //        {
@@ -120,6 +131,8 @@ class CategoriesController extends Controller
      */
     public function update(CategoryRequest $request, string $id)
     {
+//        Gate::authorize('categories.update'); check in CategoryRequest
+
 //        $request->validate($request->rules($id));
 
         $category=Category::findorFail($id);
@@ -148,6 +161,7 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
+        Gate::authorize('categories.delete');
 //        $category=Category::findorFail($id);
         $category->delete();
 //        if($category->image)
