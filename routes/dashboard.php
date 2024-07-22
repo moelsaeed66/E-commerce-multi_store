@@ -1,11 +1,13 @@
 <?php
 
 
+use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\RolesController;
+use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Middleware\CheckUserType;
 use Illuminate\Support\Facades\Route;
 //
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //    ->middleware(['auth'])
 //    ->name('dashboard');
 Route::group([
-    'middleware'=>['auth:admin,wed'],
+    'middleware'=>['auth:admin'],
 
     'prefix'=>'admin/dashboard/'
 ],function (){
@@ -37,6 +39,12 @@ Route::group([
 
     //Roles
     Route::resource('roles', RolesController::class);
+
+    //admins
+    Route::resource('admins', AdminController::class);
+
+    //users
+    Route::resource('users', UsersController::class);
 
 
 });

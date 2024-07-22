@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 {{--    {{dd($role)}}--}}
-    <form action="{{route('roles.update',['role'=>$roles->id])}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('roles.update',['role'=>$role->id])}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
       @include('dashboard.roles._form',['button_label'=>'update'])

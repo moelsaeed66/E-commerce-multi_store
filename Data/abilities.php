@@ -24,5 +24,7 @@ return[
     'roles.view'=>'View Roles',
     'roles.create'=>'Create Roles',
     'roles.update'=>'Update Roles',
-    'roles.delete'=>'Delete Roles'
+    'roles.delete'=>'Delete Roles',
+    'roles.restore'=>'Restore Roles',
+    'roles.force-delete'=>'Force Delete Roles'
 ];

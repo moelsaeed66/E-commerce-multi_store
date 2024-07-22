@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class RolesController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Role::class,'role');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -85,7 +90,7 @@ class RolesController extends Controller
 
         $role->updateWithAbilities($request);
 
-        return redirect()->route('dashboard.roles.index');
+        return redirect()->route('roles.index');
 
     }
 

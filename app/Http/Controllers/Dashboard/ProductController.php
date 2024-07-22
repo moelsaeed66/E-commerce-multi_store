@@ -15,10 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny',Product::class);//use policies
 
-            $products=Product::with('category','store')->paginate(10);
-
-
+        $products=Product::with('category','store')->paginate(10);
         return view('dashboard.products.index',compact('products'));
     }
 
@@ -27,6 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Product::class);
         return view('dashboard.products.create');
     }
 
@@ -35,15 +35,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create',Product::class);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(string $id)
     {
-        //
+        $product=Product::findOrFail($id);
+        $this->authorize('show',$product);
     }
 
     /**
@@ -51,10 +52,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-             $product=Product::findOrFail($id);
+        $product=Product::findOrFail($id);
+        $this->authorize('update',$product);
              $tags=implode(',',$product->tags()->pluck('name')->toArray());
 //             dd($product);
-
         return view('dashboard.products.edit',compact('product','tags'));
     }
 
@@ -63,6 +64,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $this->authorize('update',$product);
 
         $product->update($request->except('tag'));
         $saved_tags=Tag::all();
@@ -122,6 +124,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        $this->authorize('delete',$product);
+
     }
 }
