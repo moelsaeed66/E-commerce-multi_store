@@ -13,6 +13,8 @@
 
     </div>
     <x-alert type="success"/>
+    <x-alert type="info"/>
+
 {{--@if(session()->has('success'))--}}
 {{--    <div class="alert alert-success">--}}
 {{--        {{session('success')}}--}}

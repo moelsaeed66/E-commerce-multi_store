@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Events\OrderCreate;
+use App\Exceptions\InvalidOrderException;
 use App\Facades\Cart;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
@@ -23,7 +24,8 @@ class CheckoutController extends Controller
     {
         if($cart->get()->count() ==0)
         {
-            return redirect()->route('home');
+            throw new InvalidOrderException('Cart Is Empty');
+//            return redirect()->route('home');
         }
 
         return view('front.checkout',[
