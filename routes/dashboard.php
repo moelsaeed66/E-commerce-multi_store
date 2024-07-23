@@ -4,6 +4,7 @@
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\ImportProductController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\RolesController;
@@ -26,16 +27,12 @@ Route::group([
     Route::get('categories/soft-delete',[CategoriesController::class,'softDelete'])->name('categories.soft-delete');
 
     //profile
-
     Route::get('profiles',[ProfileController::class,'edit'])->name('profiles.edit');
     Route::patch('profiles',[ProfileController::class,'update'])->name('profiles.update');
 
 
     //categories
     Route::resource('categories', CategoriesController::class);
-
-    //products
-    Route::resource('products', ProductController::class);
 
     //Roles
     Route::resource('roles', RolesController::class);
@@ -45,6 +42,15 @@ Route::group([
 
     //users
     Route::resource('users', UsersController::class);
+
+    //import
+    Route::get('products/import',[ImportProductController::class,'create'])->name('products.import');
+    Route::post('products/import',[ImportProductController::class,'store']);
+
+    //products
+    Route::resource('products', ProductController::class);
+
+
 
 
 });
