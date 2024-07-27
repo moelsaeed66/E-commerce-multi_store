@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Front\CartController;
@@ -58,6 +60,11 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])
+    ->name('auth.socialite.redirect');
+Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])
+    ->name('auth.socialite.callback');
+Route::get('auth/{provider}/user',[SocialController::class,'index']);
 
 //require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';

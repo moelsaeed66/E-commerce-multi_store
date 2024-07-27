@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Facades\Cart;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Repositories\Cart\CartModelRepository;
@@ -32,6 +33,7 @@ class CartController extends Controller
         return view('front.cart',[
             'cart'=>$this->cart,
         ]);
+
     }
 
 //    /**

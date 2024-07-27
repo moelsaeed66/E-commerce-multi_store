@@ -1,25 +1,40 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('two-factor.login') }}">
-        @csrf
-        @if($errors->has('code'))
-            <div class="alert alert-danger">
-                {{$errors->first('code')}}
+<x-front-layout title="2FA Challenge">
+
+    <!-- Start Account Login Area -->
+    <div class="account-login section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
+                    <form class="card login-form" action="{{ route('two-factor.login') }}" method="post">
+                        @csrf
+                        <div class="card-body">
+                            <div class="title">
+                                <h3>2FA Challenge</h3>
+                                <p>You must enter 2FA code.</p>
+                            </div>
+                            @if ($errors->has('code'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('code') }}
+                                </div>
+                            @endif
+                            <div class="form-group input-group">
+                                <label for="reg-fn">2FA Code</label>
+                                <input class="form-control" type="text" name="code" id="reg-code">
+                            </div>
+                            <div class="form-group input-group">
+                                <label for="reg-fn">Recovery Code</label>
+                                <input class="form-control" type="text" name="recovery_code" id="reg-recovery_code">
+                            </div>
+                            <div class="button">
+                                <button class="btn" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        @endif
-        <div class="form-group input-group">
-            <label for="">Two Factor Code</label>
-            <input type="text" name="code" >
         </div>
-        <div class="form-group input-group">
-            <label for="">Recovery Code</label>
-            <input type="text" name="recovery_code" >
-        </div>
+    </div>
+    <!-- End Account Login Area -->
 
-        <div class="button">
-            <button class="btn" type="submit">Submit</button>
-        </div>
-    </form>
-</x-guest-layout>
+</x-front-layout>

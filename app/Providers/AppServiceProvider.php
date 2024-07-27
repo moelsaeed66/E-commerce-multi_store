@@ -19,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('currency_converter',function (){
             return new CurrencyConverter(config('Services.currency_converter.api_key'));
         });
+        if(App::environment('production')){
+            $this->app->singleton('public.path',function (){
+                return base_path('/../public_html');
+            });
+        }
     }
 
     /**

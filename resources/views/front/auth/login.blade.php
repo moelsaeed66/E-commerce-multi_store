@@ -1,52 +1,68 @@
+<x-front-layout title="Login">
 
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-        @if($errors->has(config('fortify.username')))
-            <div class="alert alert-danger">
-                {{$errors->first(config('fortify.username'))}}</div>
-        @endif
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="text" name="{{config('fortify.username')}}" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <!-- Start Account Login Area -->
+    <div class="account-login section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
+                    <form class="card login-form" action="{{ route('login') }}" method="post">
+                        @csrf
+                        <div class="card-body">
+                            <div class="title">
+                                <h3>Login Now</h3>
+                                <p>You can login using your social media account or email address.</p>
+                            </div>
+                            <div class="social-login">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-12"><a class="btn facebook-btn"
+                                                                             href="{{ route('auth.socialite.redirect', 'facebook') }}"><i class="lni lni-facebook-filled"></i> Facebook
+                                            login</a></div>
+                                    <div class="col-lg-4 col-md-4 col-12"><a class="btn twitter-btn"
+                                                                             href="javascript:void(0)"><i class="lni lni-twitter-original"></i> Twitter
+                                            login</a></div>
+                                    <div class="col-lg-4 col-md-4 col-12"><a class="btn google-btn"
+                                                                             href="{{ route('auth.socialite.redirect', 'google') }}"><i class="lni lni-google"></i> Google login</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alt-option">
+                                <span>Or</span>
+                            </div>
+                            @if ($errors->has(config('fortify.username')))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first(config('fortify.username')) }}
+                                </div>
+                            @endif
+                            <div class="form-group input-group">
+                                <label for="reg-fn">Email</label>
+                                <input class="form-control" type="text" name="{{ config('fortify.username') }}" id="reg-email" required>
+                            </div>
+                            <div class="form-group input-group">
+                                <label for="reg-fn">Password</label>
+                                <input class="form-control" type="password" name="password" id="reg-pass" required>
+                            </div>
+                            <div class="d-flex flex-wrap justify-content-between bottom-content">
+                                <div class="form-check">
+                                    <input type="checkbox" name="remember" value="1" class="form-check-input width-auto" id="exampleCheck1">
+                                    <label class="form-check-label">Remember me</label>
+                                </div>
+                                @if (Route::has('password.request'))
+                                    <a class="lost-pass" href="{{ route('password.request') }}">Forgot password?</a>
+                                @endif
+                            </div>
+                            <div class="button">
+                                <button class="btn" type="submit">Login</button>
+                            </div>
+                            @if (Route::has('register'))
+                                <p class="outer-link">Don't have an account? <a href="{{ route('register') }}">Register here </a>
+                                </p>
+                            @endif
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+    </div>
+    <!-- End Account Login Area -->
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                          type="password"
-                          name="password"
-                          required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
-
+</x-front-layout>
