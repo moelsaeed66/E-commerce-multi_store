@@ -18,6 +18,10 @@ class Order extends Model
             ->using(OrderItem::class)
             ->withPivot(['price','options','quantity','product_name']);
     }
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class,'order_id');
+    }
 
     public function store()
     {

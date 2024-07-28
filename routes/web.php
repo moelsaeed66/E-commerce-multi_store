@@ -8,6 +8,7 @@ use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\front\CurrencyConverterController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProductsController;
 use App\Http\Controllers\Front\TwoFactorAuthenticationController;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +66,14 @@ Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'
 Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])
     ->name('auth.socialite.callback');
 Route::get('auth/{provider}/user',[SocialController::class,'index']);
+
+Route::get('orders/{order}/pay',[PaymentController::class,'create'])
+->name('orders.payments.create');
+
+Route::post('orders/{order}/stripe/payment-intent', [PaymentController::class, 'createStripeIntent'])
+    ->name('stripe.paymentIntent.create');
+Route::get('orders/{order}/pay/stripe/callback', [PaymentController::class, 'confirm'])
+    ->name('stripe.return');
 
 //require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';

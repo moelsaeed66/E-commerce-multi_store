@@ -29,7 +29,11 @@ class SendOrderCreateNotification
         //single user
         $user=User::where('store_id',$order->store_id)->first();
 //        dd($user);
-        $user->notify(new OrderCreateNotification($order));
+        if($user)
+        {
+            $user->notify(new OrderCreateNotification($order));
+        }
+
 
         //many users
 //        $users=User::where('store_id',$order->store_id)->get();
