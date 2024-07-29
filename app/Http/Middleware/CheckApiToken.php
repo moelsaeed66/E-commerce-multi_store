@@ -15,13 +15,13 @@ class CheckApiToken
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $token=$request->header('x-api-key');
-        if($token!=config('app.api_token'))
-        {
-            return \response([
-                'message'=>'Invalid Api Token',
-            ],400);
-        }
+//        $token=$request->header('x-api-key');
+//        if($token!=config('app.api_token'))
+//        {
+//            return \response([
+//                'message'=>'Invalid Api Token',
+//            ],400);
+//        }
         return $next($request);
     }
 }
