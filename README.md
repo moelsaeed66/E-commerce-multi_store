@@ -1,6 +1,6 @@
 ## Multi-Vendor-Store
 
-+ using
+
 + breeze and fortify also (user interface)
 + notification using mail,database,broadcast
 + localization
@@ -8,3 +8,5 @@
 + social login 
 + stripe payment
 + live tracking using google maps
++ repository pattern
++ service layer
