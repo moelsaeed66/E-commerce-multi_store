@@ -10,3 +10,5 @@
 + live tracking using google maps
 + repository pattern
 + service layer
++ currency converter
++ jobs and queue 
