@@ -1,6 +1,6 @@
 ## Multi-Vendor-Store
 
-*.using
+*using
 *breeze and fortify also (user interface)
 *notification using mail,database,broadcast
 *localization
