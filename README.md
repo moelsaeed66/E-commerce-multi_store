@@ -11,4 +11,5 @@
 + repository pattern
 + service layer
 + currency converter
++ jobs and schedule
 + jobs and queue 
